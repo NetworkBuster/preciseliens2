@@ -30,8 +30,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     chrome.tabs.sendMessage(tab.id, {
                         type: "STATE_CHANGED",
                         state: message.state
-                    }).catch(() => {
-                        // Tab may not have content script loaded
+                    }, () => {
+                        // Ignore errors for tabs without content script
+                        void chrome.runtime.lastError;
                     });
                 }
             });

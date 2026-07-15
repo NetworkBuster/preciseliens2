@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load current state
     chrome.runtime.sendMessage({ type: "GET_STATE" }, (response) => {
+        if (chrome.runtime.lastError || !response) return;
         if (response) {
             shaderToggle.checked = response.shaderEnabled;
             shaderType.value = response.shaderType || "crt";

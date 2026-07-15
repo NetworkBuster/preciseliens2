@@ -425,9 +425,8 @@
 
     // Load initial state
     chrome.runtime.sendMessage({ type: "GET_STATE" }, (response) => {
-        if (response) {
-            state = response;
-            applyState();
-        }
+        if (chrome.runtime.lastError || !response) return;
+        state = response;
+        applyState();
     });
 })();
